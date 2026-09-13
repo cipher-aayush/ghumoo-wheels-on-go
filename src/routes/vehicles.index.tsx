@@ -7,15 +7,15 @@ import { VehicleCard } from "@/components/VehicleCard";
 import { CITIES, FUELS, TRANSMISSIONS, VEHICLE_TYPES, inr, type Vehicle } from "@/lib/vehicles";
 
 type Search = {
-  city?: string;
-  pickup?: string;
-  dropoff?: string;
-  type?: string;
-  fuel?: string;
-  transmission?: string;
-  seats?: number;
-  maxPrice?: number;
-  sort?: string;
+  city?: string | undefined;
+  pickup?: string | undefined;
+  dropoff?: string | undefined;
+  type?: string | undefined;
+  fuel?: string | undefined;
+  transmission?: string | undefined;
+  seats?: number | undefined;
+  maxPrice?: number | undefined;
+  sort?: string | undefined;
 };
 
 const str = (v: unknown) => (typeof v === "string" && v.length > 0 ? v : undefined);
