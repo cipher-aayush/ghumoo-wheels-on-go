@@ -365,11 +365,13 @@ function BookingFlow() {
             {step === 3 ? (
               <div>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    ["card", "Card"],
-                    ["upi", "UPI"],
-                    ["wallet", "Wallet"],
-                  ].map(([id, label]) => (
+                  {(
+                    [
+                      ["card", "Card"],
+                      ["upi", "UPI"],
+                      ["wallet", "Wallet"],
+                    ] as const
+                  ).map(([id, label]) => (
                     <button
                       key={id}
                       type="button"
