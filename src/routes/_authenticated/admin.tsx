@@ -54,10 +54,10 @@ type Draft = {
 const EMPTY: Draft = {
   name: "",
   brand: "",
-  type: VEHICLE_TYPES[0],
-  city: CITIES[0],
-  transmission: TRANSMISSIONS[0],
-  fuel: FUELS[0],
+  type: VEHICLE_TYPES[0] ?? "Hatchback",
+  city: CITIES[0] ?? "Bengaluru",
+  transmission: TRANSMISSIONS[0] ?? "Manual",
+  fuel: FUELS[0] ?? "Petrol",
   seats: 5,
   mileage: "",
   luggage: "",
@@ -65,7 +65,7 @@ const EMPTY: Draft = {
   price_per_day: 2400,
   security_deposit: 3000,
   description: "",
-  image_key: IMAGE_KEYS[0],
+  image_key: IMAGE_KEYS[0] ?? "hatchback",
   available: true,
 };
 

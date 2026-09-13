@@ -7,15 +7,15 @@ import { VehicleCard } from "@/components/VehicleCard";
 import { CITIES, FUELS, TRANSMISSIONS, VEHICLE_TYPES, inr, type Vehicle } from "@/lib/vehicles";
 
 type Search = {
-  city?: string;
-  pickup?: string;
-  dropoff?: string;
-  type?: string;
-  fuel?: string;
-  transmission?: string;
-  seats?: number;
-  maxPrice?: number;
-  sort?: string;
+  city?: string | undefined;
+  pickup?: string | undefined;
+  dropoff?: string | undefined;
+  type?: string | undefined;
+  fuel?: string | undefined;
+  transmission?: string | undefined;
+  seats?: number | undefined;
+  maxPrice?: number | undefined;
+  sort?: string | undefined;
 };
 
 const str = (v: unknown) => (typeof v === "string" && v.length > 0 ? v : undefined);
@@ -53,10 +53,20 @@ export const Route = createFileRoute("/vehicles/")({
 
 function VehiclesPage() {
   const search = Route.useSearch();
-  const navigate = useNavigate({ from: "/vehicles" });
+  const navigate = useNavigate({ from: "/vehicles/" });
 
   const setSearch = (patch: Partial<Search>) =>
-    navigate({ search: (prev: Search) => ({ ...prev, ...patch }), replace: true });
+    navigate({
+      search: (prev: Search): Search => {
+        const next: Record<string, unknown> = { ...prev };
+        for (const [key, value] of Object.entries(patch)) {
+          if (value === undefined) delete next[key];
+          else next[key] = value;
+        }
+        return next as Search;
+      },
+      replace: true,
+    });
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["vehicles"],
@@ -204,7 +214,10 @@ function VehiclesPage() {
               </label>
               <button
                 onClick={() =>
-                  navigate({ search: { pickup: search.pickup, dropoff: search.dropoff }, replace: true })
+                  navigate({
+                    search: (prev: Search): Search => ({ pickup: prev.pickup, dropoff: prev.dropoff }),
+                    replace: true,
+                  })
                 }
                 className="rounded-xl bg-secondary px-4 py-2.5 text-sm font-semibold transition hover:bg-secondary/70"
               >

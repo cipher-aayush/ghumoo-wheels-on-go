@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -76,7 +76,7 @@ function BookingFlow() {
     },
   });
 
-  useMemo(() => {
+  useEffect(() => {
     if (vehicle && !city) setCity(vehicle.city);
   }, [vehicle, city]);
 
@@ -365,11 +365,13 @@ function BookingFlow() {
             {step === 3 ? (
               <div>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    ["card", "Card"],
-                    ["upi", "UPI"],
-                    ["wallet", "Wallet"],
-                  ].map(([id, label]) => (
+                  {(
+                    [
+                      ["card", "Card"],
+                      ["upi", "UPI"],
+                      ["wallet", "Wallet"],
+                    ] as const
+                  ).map(([id, label]) => (
                     <button
                       key={id}
                       type="button"
