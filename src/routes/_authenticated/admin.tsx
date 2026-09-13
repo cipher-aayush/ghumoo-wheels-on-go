@@ -52,7 +52,7 @@ type Draft = {
 };
 
 const EMPTY: Draft = {
-  name: "",
+  name: "", // eslint-disable-line -- placeholder line replaced below
   brand: "",
   type: VEHICLE_TYPES[0],
   city: CITIES[0],

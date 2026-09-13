@@ -53,7 +53,7 @@ export const Route = createFileRoute("/vehicles/")({
 
 function VehiclesPage() {
   const search = Route.useSearch();
-  const navigate = useNavigate({ from: "/vehicles" });
+  const navigate = useNavigate({ from: "/vehicles/" });
 
   const setSearch = (patch: Partial<Search>) =>
     navigate({

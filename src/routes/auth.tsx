@@ -5,7 +5,7 @@ import { lovable } from "@/integrations/lovable";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
 
-type AuthSearch = { mode?: "signup" | "login"; redirect?: string };
+type AuthSearch = { mode?: "signup" | "login" | undefined; redirect?: string | undefined };
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>): AuthSearch => ({
