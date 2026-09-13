@@ -52,7 +52,7 @@ type Draft = {
 };
 
 const EMPTY: Draft = {
-  name: "", // eslint-disable-line -- placeholder line replaced below
+  name: "",
   brand: "",
   type: VEHICLE_TYPES[0],
   city: CITIES[0],
@@ -65,7 +65,7 @@ const EMPTY: Draft = {
   price_per_day: 2400,
   security_deposit: 3000,
   description: "",
-  image_key: IMAGE_KEYS[0],
+  image_key: IMAGE_KEYS[0] ?? "hatchback",
   available: true,
 };
 
