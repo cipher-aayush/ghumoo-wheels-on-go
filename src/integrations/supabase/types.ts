@@ -258,6 +258,13 @@ export type Database = {
         }
         Returns: boolean
       }
+      vehicle_booked_ranges: {
+        Args: { _vehicle_id: string }
+        Returns: {
+          dropoff_at: string
+          pickup_at: string
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "user"
