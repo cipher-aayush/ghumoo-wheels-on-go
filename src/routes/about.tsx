@@ -4,13 +4,13 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About GHUMOO — self-drive mobility for India" },
+      { title: "About DriveEasy — self-drive mobility for India" },
       {
         name: "description",
         content:
-          "GHUMOO puts keyless, insured self-drive cars and bikes in 12 Indian cities, with transparent hourly and daily pricing.",
+          "DriveEasy puts keyless, insured self-drive cars and bikes in 12 Indian cities, with transparent hourly and daily pricing.",
       },
-      { property: "og:title", content: "About GHUMOO" },
+      { property: "og:title", content: "About DriveEasy" },
       {
         property: "og:description",
         content: "Why we built a keyless, insured self-drive rental network across India.",
@@ -54,7 +54,7 @@ function About() {
           </span>
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
-          GHUMOO started with a simple frustration: renting a car in India meant paperwork, deposits nobody
+          DriveEasy started with a simple frustration: renting a car in India meant paperwork, deposits nobody
           explained, and a counter queue at the worst possible hour. We rebuilt the whole thing around the
           phone in your pocket — browse, book, unlock, drive.
         </p>
@@ -81,7 +81,7 @@ function About() {
           <h2 className="font-display text-2xl font-bold">Where we're headed</h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
             Electric vehicles now make up a growing share of the fleet, and we're expanding airport and metro
-            pickup points city by city. The goal is simple — a GHUMOO vehicle within a ten-minute walk of
+            pickup points city by city. The goal is simple — a DriveEasy vehicle within a ten-minute walk of
             wherever you happen to be.
           </p>
           <Link

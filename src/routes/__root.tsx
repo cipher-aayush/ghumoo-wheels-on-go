@@ -78,13 +78,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "GHUMOO — Self-drive car & bike rentals in India" },
+      { title: "DriveEasy — Self-drive car & bike rentals in India" },
       {
         name: "description",
         content:
           "Rent self-drive cars and bikes by the hour or day across 12 Indian cities. Insurance and fuel included, no hidden fees.",
       },
-      { property: "og:title", content: "GHUMOO — Self-drive car & bike rentals" },
+      { property: "og:title", content: "DriveEasy — Self-drive car & bike rentals" },
       {
         property: "og:description",
         content: "Browse, book and drive away in minutes. Hatchbacks, sedans, SUVs and bikes.",

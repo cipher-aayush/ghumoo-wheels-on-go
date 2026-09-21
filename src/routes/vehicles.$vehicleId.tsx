@@ -8,13 +8,13 @@ import { inr, vehicleImage, type Vehicle } from "@/lib/vehicles";
 export const Route = createFileRoute("/vehicles/$vehicleId")({
   head: () => ({
     meta: [
-      { title: "Vehicle details — GHUMOO self-drive rental" },
+      { title: "Vehicle details — DriveEasy self-drive rental" },
       {
         name: "description",
         content:
           "Full specs, hourly and daily pricing, deposit, taxes and reviews for this self-drive rental vehicle.",
       },
-      { property: "og:title", content: "Vehicle details — GHUMOO" },
+      { property: "og:title", content: "Vehicle details — DriveEasy" },
       {
         property: "og:description",
         content: "Specs, pricing breakdown and availability for your next self-drive trip.",

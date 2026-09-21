@@ -35,13 +35,13 @@ export const Route = createFileRoute("/vehicles/")({
   }),
   head: () => ({
     meta: [
-      { title: "Browse self-drive cars & bikes — GHUMOO" },
+      { title: "Browse self-drive cars & bikes — DriveEasy" },
       {
         name: "description",
         content:
           "Filter self-drive rentals by city, type, fuel, transmission, seats and price. Hourly and daily rates with insurance included.",
       },
-      { property: "og:title", content: "Browse self-drive cars & bikes — GHUMOO" },
+      { property: "og:title", content: "Browse self-drive cars & bikes — DriveEasy" },
       {
         property: "og:description",
         content: "Hundreds of hatchbacks, sedans, SUVs and bikes across 12 Indian cities.",

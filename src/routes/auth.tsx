@@ -14,12 +14,12 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Log in or sign up — GHUMOO self-drive rentals" },
+      { title: "Log in or sign up — DriveEasy self-drive rentals" },
       {
         name: "description",
-        content: "Access your GHUMOO account to book self-drive cars and bikes and manage trips.",
+        content: "Access your DriveEasy account to book self-drive cars and bikes and manage trips.",
       },
-      { property: "og:title", content: "Log in to GHUMOO" },
+      { property: "og:title", content: "Log in to DriveEasy" },
       { property: "og:description", content: "Sign in to book self-drive cars and bikes in India." },
     ],
   }),
@@ -156,7 +156,7 @@ function AuthPage() {
           onClick={() => setIsSignup((v) => !v)}
           className="mt-6 text-sm text-primary transition hover:text-foreground"
         >
-          {isSignup ? "Already have an account? Log in" : "New to GHUMOO? Create an account"}
+          {isSignup ? "Already have an account? Log in" : "New to DriveEasy? Create an account"}
         </button>
 
         <Link to="/" className="mt-2 text-xs text-muted-foreground transition hover:text-foreground">

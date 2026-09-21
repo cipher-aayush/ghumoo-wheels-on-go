@@ -4,13 +4,13 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — GHUMOO self-drive rentals" },
+      { title: "Privacy Policy — DriveEasy self-drive rentals" },
       {
         name: "description",
         content:
-          "How GHUMOO collects, uses, stores and protects your account, licence and booking data, and the rights you have over it.",
+          "How DriveEasy collects, uses, stores and protects your account, licence and booking data, and the rights you have over it.",
       },
-      { property: "og:title", content: "Privacy Policy — GHUMOO" },
+      { property: "og:title", content: "Privacy Policy — DriveEasy" },
       {
         property: "og:description",
         content: "What data we collect, why we collect it, how long we keep it, and your rights.",

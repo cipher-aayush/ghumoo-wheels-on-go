@@ -10,13 +10,13 @@ import heroImage from "@/assets/hero-suv.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GHUMOO — Self-drive car & bike rental in India" },
+      { title: "DriveEasy — Self-drive car & bike rental in India" },
       {
         name: "description",
         content:
           "Book self-drive cars and bikes by the hour or day in 12 Indian cities. Insurance included, 24/7 support, no hidden fees.",
       },
-      { property: "og:title", content: "GHUMOO — Drive your way. Rent in minutes." },
+      { property: "og:title", content: "DriveEasy — Drive your way. Rent in minutes." },
       {
         property: "og:description",
         content: "Hatchbacks, sedans, SUVs and bikes ready when you are.",
@@ -190,7 +190,7 @@ function Landing() {
         <div className="flex items-end justify-between">
           <div>
             <h2 className="font-display text-3xl font-bold tracking-tight">Popular this week</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Most-loved rides on GHUMOO right now.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Most-loved rides on DriveEasy right now.</p>
           </div>
           <Link to="/vehicles" className="text-sm font-medium text-primary transition hover:text-foreground">
             View all →

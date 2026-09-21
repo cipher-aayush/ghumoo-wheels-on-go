@@ -8,7 +8,7 @@ export function Footer() {
           <span className="grid size-7 place-items-center rounded-lg gradient-brand font-display text-sm font-bold text-primary-foreground">
             G
           </span>
-          <span className="font-display font-semibold text-foreground">GHUMOO</span>
+          <span className="font-display font-semibold text-foreground">DriveEasy</span>
           <span className="opacity-60">© {new Date().getFullYear()} · Drive your way</span>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2">

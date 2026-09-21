@@ -18,12 +18,12 @@ import {
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin panel — GHUMOO fleet & bookings" },
+      { title: "Admin panel — DriveEasy fleet & bookings" },
       {
         name: "description",
-        content: "Manage the GHUMOO fleet, add or retire vehicles, and review every booking with its status.",
+        content: "Manage the DriveEasy fleet, add or retire vehicles, and review every booking with its status.",
       },
-      { property: "og:title", content: "Admin panel — GHUMOO" },
+      { property: "og:title", content: "Admin panel — DriveEasy" },
       { property: "og:description", content: "Fleet CRUD, booking oversight and live stats." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

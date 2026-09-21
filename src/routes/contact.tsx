@@ -5,13 +5,13 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact GHUMOO — support for self-drive rentals" },
+      { title: "Contact DriveEasy — support for self-drive rentals" },
       {
         name: "description",
         content:
-          "Reach the GHUMOO team for booking help, roadside assistance, corporate rentals or fleet partnerships.",
+          "Reach the DriveEasy team for booking help, roadside assistance, corporate rentals or fleet partnerships.",
       },
-      { property: "og:title", content: "Contact GHUMOO" },
+      { property: "og:title", content: "Contact DriveEasy" },
       { property: "og:description", content: "Support, roadside assistance and partnership enquiries." },
     ],
   }),
@@ -20,8 +20,8 @@ export const Route = createFileRoute("/contact")({
 
 const CHANNELS = [
   ["24/7 roadside", "1800-000-4826", "Breakdowns, accidents and lockouts."],
-  ["Booking support", "support@ghumoo.in", "Changes, cancellations and refunds."],
-  ["Partnerships", "fleet@ghumoo.in", "List your vehicles on GHUMOO."],
+  ["Booking support", "support@driveeasy.in", "Changes, cancellations and refunds."],
+  ["Partnerships", "fleet@driveeasy.in", "List your vehicles on DriveEasy."],
 ];
 
 function Contact() {

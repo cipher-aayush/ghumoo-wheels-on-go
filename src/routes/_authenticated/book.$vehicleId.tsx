@@ -9,12 +9,12 @@ import { ADDONS, CITIES, inr, quote, vehicleImage, type Vehicle } from "@/lib/ve
 export const Route = createFileRoute("/_authenticated/book/$vehicleId")({
   head: () => ({
     meta: [
-      { title: "Book your ride — GHUMOO" },
+      { title: "Book your ride — DriveEasy" },
       {
         name: "description",
-        content: "Pick your dates, add extras, confirm your details and pay for your GHUMOO self-drive trip.",
+        content: "Pick your dates, add extras, confirm your details and pay for your DriveEasy self-drive trip.",
       },
-      { property: "og:title", content: "Book your ride — GHUMOO" },
+      { property: "og:title", content: "Book your ride — DriveEasy" },
       { property: "og:description", content: "Four quick steps from dates to confirmation." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -416,7 +416,7 @@ function BookingFlow() {
                   ) : null}
                   {method === "wallet" ? (
                     <p className="text-sm text-muted-foreground">
-                      Your GHUMOO wallet balance covers this trip. Nothing else to enter.
+                      Your DriveEasy wallet balance covers this trip. Nothing else to enter.
                     </p>
                   ) : null}
                 </div>
