@@ -9,12 +9,12 @@ import { inr, vehicleImage, type Vehicle } from "@/lib/vehicles";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "My bookings — GHUMOO dashboard" },
+      { title: "My bookings — DriveEasy dashboard" },
       {
         name: "description",
         content: "Track upcoming, ongoing and past self-drive trips, update your profile and licence, and revisit saved vehicles.",
       },
-      { property: "og:title", content: "My bookings — GHUMOO" },
+      { property: "og:title", content: "My bookings — DriveEasy" },
       { property: "og:description", content: "Your trips, profile and saved vehicles in one place." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

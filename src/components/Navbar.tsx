@@ -25,7 +25,7 @@ export function Navbar() {
           <span className="grid size-9 place-items-center rounded-xl gradient-brand font-display text-lg font-bold text-primary-foreground">
             G
           </span>
-          <span className="font-display text-xl font-bold tracking-tight">GHUMOO</span>
+          <span className="font-display text-xl font-bold tracking-tight">DriveEasy</span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-muted-foreground md:flex">

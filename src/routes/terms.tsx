@@ -4,13 +4,13 @@ import { SiteLayout } from "@/components/SiteLayout";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — GHUMOO self-drive rentals" },
+      { title: "Terms of Service — DriveEasy self-drive rentals" },
       {
         name: "description",
         content:
-          "Rental terms for GHUMOO self-drive cars and bikes: eligibility, deposits, fuel, damage, cancellations and late returns.",
+          "Rental terms for DriveEasy self-drive cars and bikes: eligibility, deposits, fuel, damage, cancellations and late returns.",
       },
-      { property: "og:title", content: "Terms of Service — GHUMOO" },
+      { property: "og:title", content: "Terms of Service — DriveEasy" },
       {
         property: "og:description",
         content: "Eligibility, deposits, fuel policy, damages, cancellations and late-return rules.",
@@ -68,7 +68,7 @@ function Terms() {
         <p className="text-xs uppercase tracking-[0.2em] text-primary">Legal</p>
         <h1 className="mt-3 font-display text-5xl font-bold tracking-tight">Terms of Service</h1>
         <p className="mt-4 text-sm text-muted-foreground">
-          Last updated 1 September 2026. These terms govern every GHUMOO self-drive rental.
+          Last updated 1 September 2026. These terms govern every DriveEasy self-drive rental.
         </p>
 
         <div className="mt-10 space-y-4">
