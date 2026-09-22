@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession, useIsAdmin } from "@/hooks/use-session";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export function Navbar() {
   const { user } = useSession();
@@ -22,9 +23,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid size-9 place-items-center rounded-xl gradient-brand font-display text-lg font-bold text-primary-foreground">
-            G
-          </span>
+          <BrandLogo />
           <span className="font-display text-xl font-bold tracking-tight">DriveEasy</span>
         </Link>
 

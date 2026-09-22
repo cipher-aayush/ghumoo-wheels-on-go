@@ -1,7 +1,7 @@
 # DriveEasy roadmap
 
 - [x] Rename GHUMOO -> DriveEasy across all pages, titles and copy
-- [ ] Logo mark letter D
+- [x] Replace the letter tile with a distinctive DriveEasy road logo
 - [ ] Sender domain driveeasy.in + booking confirmation email (needs user to finish domain setup)
 - [ ] Admin role for aayushstudy25@gmail.com (grant on signup/verify)
 - [ ] Separate /admin-login page
