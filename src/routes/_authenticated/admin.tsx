@@ -48,6 +48,7 @@ type Draft = {
   security_deposit: number;
   description: string;
   image_key: string;
+  images: string[];
   available: boolean;
 };
 
@@ -66,6 +67,7 @@ const EMPTY: Draft = {
   security_deposit: 3000,
   description: "",
   image_key: IMAGE_KEYS[0] ?? "hatchback",
+  images: [],
   available: true,
 };
 
@@ -78,6 +80,7 @@ function Admin() {
   const [tab, setTab] = useState<"fleet" | "bookings">("fleet");
   const [draft, setDraft] = useState<Draft | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const { data: vehicles = [] } = useQuery({
     queryKey: ["admin-vehicles"],
@@ -113,6 +116,27 @@ function Admin() {
     },
   });
 
+  async function uploadPhotos(files: File[]) {
+    setUploading(true);
+    setError(null);
+    const urls: string[] = [];
+    for (const file of files) {
+      const ext = file.name.split(".").pop() ?? "jpg";
+      const path = `${crypto.randomUUID()}.${ext}`;
+      const up = await supabase.storage.from("vehicle-images").upload(path, file, { contentType: file.type });
+      if (up.error) {
+        setError(up.error.message);
+        continue;
+      }
+      const signed = await supabase.storage
+        .from("vehicle-images")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+      if (signed.data?.signedUrl) urls.push(signed.data.signedUrl);
+    }
+    setDraft((d) => (d ? { ...d, images: [...d.images, ...urls] } : d));
+    setUploading(false);
+  }
+
   async function saveDraft() {
     if (!draft) return;
     setError(null);
@@ -131,6 +155,7 @@ function Admin() {
       security_deposit: Number(draft.security_deposit),
       description: draft.description || null,
       image_key: draft.image_key,
+      images: draft.images,
       available: draft.available,
     };
     const res = draft.id
@@ -289,11 +314,46 @@ function Admin() {
                 onChange={(v) => setDraft({ ...draft, security_deposit: Number(v) || 0 })}
               />
               <Select
-                label="Image"
+                label="Fallback image"
                 value={draft.image_key}
                 options={IMAGE_KEYS}
                 onChange={(v) => setDraft({ ...draft, image_key: v })}
               />
+              <div className="sm:col-span-3">
+                <span className="mb-2 block text-xs uppercase tracking-wider text-muted-foreground">
+                  Photos (first one is the cover)
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  {draft.images.map((src, i) => (
+                    <div key={src} className="relative">
+                      <img src={src} alt={`Photo ${i + 1}`} className="h-20 w-28 rounded-xl object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => setDraft({ ...draft, images: draft.images.filter((x) => x !== src) })}
+                        className="absolute -right-2 -top-2 rounded-full bg-destructive px-2 text-xs font-bold text-destructive-foreground"
+                        aria-label="Remove photo"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  <label className="flex h-20 w-28 cursor-pointer items-center justify-center rounded-xl border border-dashed border-border text-xs text-muted-foreground hover:text-primary">
+                    {uploading ? "Uploading…" : "+ Add photos"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      hidden
+                      disabled={uploading}
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files ?? []);
+                        e.target.value = "";
+                        if (files.length) void uploadPhotos(files);
+                      }}
+                    />
+                  </label>
+                </div>
+              </div>
               <label className="flex items-end gap-2 pb-3 text-sm">
                 <input
                   type="checkbox"
@@ -336,7 +396,7 @@ function Admin() {
             {vehicles.map((v) => (
               <article key={v.id} className="flex flex-col gap-5 rounded-3xl glass p-5 sm:flex-row sm:items-center">
                 <img
-                  src={vehicleImage(v.image_key)}
+                  src={v.images?.[0] ?? vehicleImage(v.image_key)}
                   alt={`${v.brand} ${v.name}`}
                   loading="lazy"
                   width={180}
@@ -380,6 +440,7 @@ function Admin() {
                         security_deposit: Number(v.security_deposit),
                         description: v.description ?? "",
                         image_key: v.image_key,
+                        images: v.images ?? [],
                         available: v.available,
                       })
                     }
