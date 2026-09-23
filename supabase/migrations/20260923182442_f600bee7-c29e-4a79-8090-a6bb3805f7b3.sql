@@ -1,0 +1,4 @@
+ALTER TABLE public.vehicles ADD COLUMN IF NOT EXISTS images text[] NOT NULL DEFAULT '{}';
+CREATE POLICY "admins read vehicle images" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'vehicle-images' AND public.has_role(auth.uid(), 'admin'));
+CREATE POLICY "admins upload vehicle images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'vehicle-images' AND public.has_role(auth.uid(), 'admin'));
+CREATE POLICY "admins delete vehicle images" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'vehicle-images' AND public.has_role(auth.uid(), 'admin'));
