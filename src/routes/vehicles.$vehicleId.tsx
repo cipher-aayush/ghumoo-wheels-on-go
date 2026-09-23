@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
-import { inr, vehicleImage, type Vehicle } from "@/lib/vehicles";
+import { inr, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
 
 export const Route = createFileRoute("/vehicles/$vehicleId")({
   head: () => ({
@@ -35,6 +36,7 @@ function nextDays(count: number) {
 }
 
 function VehicleDetail() {
+  const [activePhoto, setActivePhoto] = useState(0);
   const { vehicleId } = Route.useParams();
   const { user } = useSession();
   const navigate = useNavigate();
