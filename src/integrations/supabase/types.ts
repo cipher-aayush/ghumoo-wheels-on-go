@@ -190,6 +190,7 @@ export type Database = {
           fuel: string
           id: string
           image_key: string
+          images: string[]
           luggage: string | null
           mileage: string | null
           name: string
@@ -211,6 +212,7 @@ export type Database = {
           fuel: string
           id?: string
           image_key?: string
+          images?: string[]
           luggage?: string | null
           mileage?: string | null
           name: string
@@ -232,6 +234,7 @@ export type Database = {
           fuel?: string
           id?: string
           image_key?: string
+          images?: string[]
           luggage?: string | null
           mileage?: string | null
           name?: string

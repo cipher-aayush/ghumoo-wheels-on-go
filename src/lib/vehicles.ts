@@ -22,6 +22,7 @@ export type Vehicle = {
   trips: number;
   description: string | null;
   image_key: string;
+  images?: string[] | null;
   available: boolean;
 };
 
@@ -29,6 +30,11 @@ const IMAGES: Record<string, string> = { hatchback, sedan, suv, ev, bike };
 
 export function vehicleImage(key: string): string {
   return IMAGES[key] ?? hatchback;
+}
+
+export function vehiclePhotos(v: Pick<Vehicle, "image_key" | "images">): string[] {
+  const own = (v.images ?? []).filter(Boolean);
+  return own.length ? own : [vehicleImage(v.image_key)];
 }
 
 export const IMAGE_KEYS = Object.keys(IMAGES);

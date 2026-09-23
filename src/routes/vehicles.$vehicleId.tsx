@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
-import { inr, vehicleImage, type Vehicle } from "@/lib/vehicles";
+import { inr, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
 
 export const Route = createFileRoute("/vehicles/$vehicleId")({
   head: () => ({
@@ -35,6 +36,7 @@ function nextDays(count: number) {
 }
 
 function VehicleDetail() {
+  const [activePhoto, setActivePhoto] = useState(0);
   const { vehicleId } = Route.useParams();
   const { user } = useSession();
   const navigate = useNavigate();
@@ -99,7 +101,8 @@ function VehicleDetail() {
     );
   }
 
-  const image = vehicleImage(vehicle.image_key);
+  const photos = vehiclePhotos(vehicle);
+  const image = photos[activePhoto] ?? photos[0] ?? vehicleImage(vehicle.image_key);
   const taxes = Math.round(Number(vehicle.price_per_day) * 0.18);
 
   return (
@@ -118,19 +121,29 @@ function VehicleDetail() {
               height={768}
               className="aspect-[4/3] w-full rounded-3xl object-cover outline outline-1 -outline-offset-1 outline-border"
             />
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {[0, 1, 2].map((i) => (
-                <img
-                  key={i}
-                  src={image}
-                  alt={`${vehicle.brand} ${vehicle.name} view ${i + 2}`}
-                  loading="lazy"
-                  width={400}
-                  height={300}
-                  className="aspect-[4/3] w-full rounded-2xl object-cover opacity-80 transition hover:opacity-100"
-                />
-              ))}
-            </div>
+            {photos.length > 1 ? (
+              <div className="mt-4 grid grid-cols-4 gap-3">
+                {photos.map((src, i) => (
+                  <button
+                    key={src + i}
+                    type="button"
+                    onClick={() => setActivePhoto(i)}
+                    className={`overflow-hidden rounded-2xl transition ${
+                      i === activePhoto ? "ring-2 ring-primary" : "opacity-70 hover:opacity-100"
+                    }`}
+                  >
+                    <img
+                      src={src}
+                      alt={`${vehicle.brand} ${vehicle.name} photo ${i + 1}`}
+                      loading="lazy"
+                      width={400}
+                      height={300}
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             <h1 className="mt-8 font-display text-4xl font-bold tracking-tight">
               {vehicle.brand} {vehicle.name}
