@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { inr, vehicleImage, type Vehicle } from "@/lib/vehicles";
+import { inr, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <article className="group overflow-hidden rounded-3xl glass-strong transition hover:bg-secondary/40">
       <div className="aspect-[4/3] w-full overflow-hidden bg-card">
         <img
-          src={vehicleImage(vehicle.image_key)}
+          src={vehiclePhotos(vehicle)[0] ?? vehicleImage(vehicle.image_key)}
           alt={`${vehicle.brand} ${vehicle.name} available for self-drive rental`}
           loading="lazy"
           width={1024}
