@@ -54,7 +54,7 @@ export const CITIES = [
   "Goa",
 ];
 
-export const VEHICLE_TYPES = ["Hatchback", "Sedan", "SUV", "Bike"];
+export const VEHICLE_TYPES = ["Hatchback", "Sedan", "SUV", "Scooty", "Bike"];
 export const FUELS = ["Petrol", "Diesel", "Electric"];
 export const TRANSMISSIONS = ["Manual", "Automatic"];
 

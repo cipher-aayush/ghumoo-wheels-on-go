@@ -114,6 +114,35 @@
   }
 }
 
+.aurora-scroll {
+  --aurora-scroll: 0px;
+}
+
+.aurora-ribbon {
+  will-change: transform;
+  transition: transform 180ms linear;
+}
+
+.aurora-ribbon-primary {
+  transform: translate3d(0, calc(var(--aurora-scroll) * -0.09), 0) rotate(-12deg);
+}
+
+.aurora-ribbon-violet {
+  transform: translate3d(0, calc(var(--aurora-scroll) * 0.07), 0) rotate(14deg);
+}
+
+.aurora-ribbon-mid {
+  transform: translate3d(calc(var(--aurora-scroll) * -0.025), calc(var(--aurora-scroll) * -0.04), 0)
+    rotate(-20deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-ribbon {
+    transform: none;
+    transition: none;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
