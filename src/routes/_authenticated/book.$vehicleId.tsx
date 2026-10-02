@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
-import { ADDONS, CITIES, inr, quote, vehicleImage, type Vehicle } from "@/lib/vehicles";
+import { ADDONS, CITIES, inr, quote, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
 
 export const Route = createFileRoute("/_authenticated/book/$vehicleId")({
   head: () => ({
@@ -462,7 +462,7 @@ function BookingFlow() {
 
           <aside className="h-fit rounded-3xl glass-strong p-6 lg:sticky lg:top-24">
             <img
-              src={vehicleImage(vehicle.image_key)}
+              src={vehiclePhotos(vehicle)[0] ?? vehicleImage(vehicle.image_key)}
               alt={`${vehicle.brand} ${vehicle.name}`}
               width={400}
               height={300}

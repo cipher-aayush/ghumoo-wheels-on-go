@@ -6,6 +6,7 @@ import { SiteLayout } from "@/components/SiteLayout";
 import { VehicleCard } from "@/components/VehicleCard";
 import { CITIES, inr, type Vehicle } from "@/lib/vehicles";
 import heroImage from "@/assets/hero-suv.jpg";
+import bookingTutorial from "@/assets/driveeasy-booking-tutorial.mp4.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -155,13 +156,23 @@ function Landing() {
           </div>
 
           <div className="relative">
-            <img
-              src={heroImage}
-              alt="Silver SUV parked under teal and violet aurora lights on wet asphalt"
+            <video
+              src={bookingTutorial.url}
+              poster={heroImage}
+              aria-label="How to book a DriveEasy rental vehicle in five steps"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              preload="metadata"
               width={1080}
               height={1350}
-              className="aspect-[4/5] w-full rounded-3xl object-cover outline outline-1 -outline-offset-1 outline-border"
+              className="aspect-[4/5] w-full rounded-3xl bg-card object-cover outline outline-1 -outline-offset-1 outline-border"
             />
+            <div className="pointer-events-none absolute left-4 top-4 rounded-xl glass-strong px-4 py-2">
+              <p className="text-xs font-semibold text-primary">How to book in 5 steps</p>
+            </div>
             <div className="absolute -bottom-5 -left-5 rounded-2xl glass-strong px-5 py-4 shadow-xl">
               <p className="text-xs text-muted-foreground">Avg. per day</p>
               <p className="font-display text-2xl font-bold text-primary">{inr(1499)}</p>
