@@ -22,6 +22,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Hatchbacks, sedans, SUVs and bikes ready when you are.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Landing,
