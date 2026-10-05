@@ -26,6 +26,13 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         <p className="mt-1 text-xs text-muted-foreground">
           {vehicle.seats} seats · {vehicle.fuel} · {vehicle.transmission} · {vehicle.city}
         </p>
+        <ul className="mt-3 flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
+          <li className="rounded-md border border-border px-2 py-0.5">140 km/day incl.</li>
+          <li className="rounded-md border border-border px-2 py-0.5">Fuel excluded</li>
+          <li className="rounded-md border border-border px-2 py-0.5">
+            {inr(Number(vehicle.security_deposit))} deposit
+          </li>
+        </ul>
         <div className="mt-4 flex items-center justify-between">
           <p className="font-display text-lg font-bold">
             {inr(Number(vehicle.price_per_hour))}
