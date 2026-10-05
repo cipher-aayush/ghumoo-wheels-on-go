@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
-import { ADDONS, CITIES, inr, quote, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
+import { ADDONS, CITIES, PACKAGES, inr, quote, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
 
 export const Route = createFileRoute("/_authenticated/book/$vehicleId")({
   head: () => ({
@@ -51,6 +51,7 @@ function BookingFlow() {
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
   const [addonIds, setAddonIds] = useState<string[]>([]);
+  const [packageId, setPackageId] = useState<string>("pkg-140");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -80,7 +81,7 @@ function BookingFlow() {
     if (vehicle && !city) setCity(vehicle.city);
   }, [vehicle, city]);
 
-  const priced = vehicle ? quote(vehicle, pickupAt, dropoffAt, addonIds) : null;
+  const priced = vehicle ? quote(vehicle, pickupAt, dropoffAt, addonIds, packageId) : null;
 
   function toggleAddon(id: string) {
     setAddonIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
@@ -134,7 +135,7 @@ function BookingFlow() {
         dropoff_at: new Date(dropoffAt).toISOString(),
         pickup_city: city,
         pickup_location: location || null,
-        addons: addonIds,
+        addons: [...addonIds, packageId],
         addons_amount: priced.addons,
         base_amount: priced.base,
         taxes: priced.taxes,
@@ -292,6 +293,30 @@ function BookingFlow() {
 
             {step === 1 ? (
               <div className="grid gap-3">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Kilometre package</p>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {PACKAGES.map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => setPackageId(p.id)}
+                      className={`rounded-2xl px-4 py-4 text-left text-sm transition ${
+                        packageId === p.id ? "glass-strong outline outline-1 outline-primary" : "bg-secondary/40"
+                      }`}
+                    >
+                      <span className="block font-semibold">{p.label}</span>
+                      <span className="block text-xs text-muted-foreground">{p.note}</span>
+                      <span className="mt-2 block text-xs text-muted-foreground">
+                        {p.multiplier === 1 ? "Base rate" : `+${Math.round((p.multiplier - 1) * 100)}% on rent`}
+                        {p.extraKm ? ` · ₹${p.extraKm}/extra km` : " · no excess"}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <p className="rounded-xl bg-secondary/40 px-4 py-3 text-xs text-muted-foreground">
+                  Fuel is not included. Return the vehicle at the same fuel level you received it.
+                </p>
+                <p className="mt-3 text-xs uppercase tracking-wider text-muted-foreground">Extras</p>
                 {ADDONS.map((a) => {
                   const on = addonIds.includes(a.id);
                   return (
@@ -480,6 +505,11 @@ function BookingFlow() {
                   label={`Rental (${priced.days}d ${priced.restHours}h)`}
                   value={inr(priced.base)}
                 />
+                <Row
+                  label="Package"
+                  value={priced.kmLimit ? `${priced.pkg.label} · ${priced.kmLimit} km total` : priced.pkg.label}
+                />
+                <Row label="Fuel" value="Not included" />
                 <Row label="Add-ons" value={inr(priced.addons)} />
                 <Row label="GST (18%)" value={inr(priced.taxes)} />
                 <Row label="Refundable deposit" value={inr(priced.deposit)} />

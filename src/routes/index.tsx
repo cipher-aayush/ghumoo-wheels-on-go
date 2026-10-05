@@ -4,7 +4,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { VehicleCard } from "@/components/VehicleCard";
-import { CITIES, inr, type Vehicle } from "@/lib/vehicles";
+import { CITIES, RENTAL_POLICIES, inr, type Vehicle } from "@/lib/vehicles";
 import heroImage from "@/assets/hero-suv.jpg";
 import bookingTutorial from "@/assets/driveeasy-booking-tutorial.mp4.asset.json";
 
@@ -213,6 +213,19 @@ function Landing() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {(featured ?? []).map((v) => (
             <VehicleCard key={v.id} vehicle={v} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <h2 className="font-display text-3xl font-bold tracking-tight">Rental policies, upfront</h2>
+        <p className="mt-1 text-sm text-muted-foreground">No fine print surprises at pickup.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {RENTAL_POLICIES.map((p) => (
+            <div key={p.title} className="rounded-2xl border border-border bg-card/60 p-5">
+              <h3 className="font-semibold">{p.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{p.body}</p>
+            </div>
           ))}
         </div>
       </section>
