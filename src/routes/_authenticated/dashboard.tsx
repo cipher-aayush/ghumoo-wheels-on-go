@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
-import { inr, vehicleImage, type Vehicle } from "@/lib/vehicles";
+import { inr, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -127,7 +127,7 @@ function Dashboard() {
                 f.vehicles ? (
                   <article key={f.id} className="overflow-hidden rounded-3xl glass">
                     <img
-                      src={vehicleImage(f.vehicles.image_key)}
+                      src={vehiclePhotos(f.vehicles)[0]}
                       alt={`${f.vehicles.brand} ${f.vehicles.name}`}
                       loading="lazy"
                       width={400}
@@ -174,7 +174,7 @@ function Dashboard() {
                 >
                   {b.vehicles ? (
                     <img
-                      src={vehicleImage(b.vehicles.image_key)}
+                      src={vehiclePhotos(b.vehicles)[0]}
                       alt={`${b.vehicles.brand} ${b.vehicles.name}`}
                       loading="lazy"
                       width={200}
