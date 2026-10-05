@@ -127,7 +127,7 @@ function Dashboard() {
                 f.vehicles ? (
                   <article key={f.id} className="overflow-hidden rounded-3xl glass">
                     <img
-                      src={vehicleImage(f.vehicles.image_key)}
+                      src={vehiclePhotos(f.vehicles)[0]}
                       alt={`${f.vehicles.brand} ${f.vehicles.name}`}
                       loading="lazy"
                       width={400}
