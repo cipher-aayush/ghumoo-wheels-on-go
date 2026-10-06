@@ -5,6 +5,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
 import { inr, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
+import { BookingTicket, type TicketBooking } from "@/components/BookingTicket";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Ticket } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -23,17 +27,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
 });
 
-type BookingRow = {
-  id: string;
-  reference: string;
-  status: string;
-  pickup_at: string;
-  dropoff_at: string;
-  pickup_city: string;
-  total_amount: number;
-  vehicle_id: string;
-  vehicles: Vehicle | null;
-};
+type BookingRow = TicketBooking;
 
 const TABS = ["Upcoming", "Ongoing", "Past", "Profile", "Saved"] as const;
 
@@ -55,15 +49,17 @@ function Dashboard() {
   const { user } = useSession();
   const queryClient = useQueryClient();
   const [tab, setTab] = useState<(typeof TABS)[number]>("Upcoming");
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
 
   const { data: bookings = [] } = useQuery({
     queryKey: ["my-bookings", user?.id],
     enabled: !!user,
     queryFn: async () => {
+      if (!user) return [];
       const { data, error } = await supabase
         .from("bookings")
         .select("*, vehicles(*)")
-        .eq("user_id", user!.id)
+        .eq("user_id", user.id)
         .order("pickup_at", { ascending: false });
       if (error) throw error;
       return data as unknown as BookingRow[];
@@ -74,10 +70,11 @@ function Dashboard() {
     queryKey: ["favorites", user?.id],
     enabled: !!user,
     queryFn: async () => {
+      if (!user) return [];
       const { data, error } = await supabase
         .from("favorites")
         .select("id, vehicles(*)")
-        .eq("user_id", user!.id);
+        .eq("user_id", user.id);
       if (error) throw error;
       return data as unknown as { id: string; vehicles: Vehicle | null }[];
     },
@@ -94,6 +91,7 @@ function Dashboard() {
   }
 
   const visible = bookings.filter((b) => bucketOf(b) === tab);
+  const selectedBooking = bookings.find((b) => b.id === selectedBookingId);
 
   return (
     <SiteLayout>
@@ -201,6 +199,7 @@ function Dashboard() {
                   </div>
                   <div className="text-right">
                     <p className="font-display text-xl font-bold">{inr(Number(b.total_amount))}</p>
+                    <Button size="sm" variant="outline" className="mt-2" onClick={() => setSelectedBookingId(b.id)}><Ticket />View ticket</Button>
                     {bucketOf(b) === "Upcoming" && b.status !== "cancelled" ? (
                       <button
                         onClick={() => cancelBooking(b.id)}
@@ -216,6 +215,13 @@ function Dashboard() {
           </div>
         )}
       </section>
+      <Dialog open={!!selectedBooking} onOpenChange={(open) => { if (!open) setSelectedBookingId(null); }}>
+        <DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto p-5 sm:p-6">
+          <DialogTitle className="sr-only">Booking ticket</DialogTitle>
+          <DialogDescription className="sr-only">Your vehicle, trip details and booking total.</DialogDescription>
+          <div className="pt-5">{selectedBooking && <BookingTicket booking={selectedBooking} />}</div>
+        </DialogContent>
+      </Dialog>
     </SiteLayout>
   );
 }
@@ -238,7 +244,8 @@ function ProfileEditor({ userId }: { userId: string | undefined }) {
     queryKey: ["profile", userId],
     enabled: !!userId,
     queryFn: async () => {
-      const { data, error } = await supabase.from("profiles").select("*").eq("id", userId!).maybeSingle();
+      if (!userId) return null;
+      const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).maybeSingle();
       if (error) throw error;
       return data;
     },

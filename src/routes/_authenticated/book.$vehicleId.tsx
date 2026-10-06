@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { useSession } from "@/hooks/use-session";
 import { ADDONS, CITIES, PACKAGES, inr, quote, vehicleImage, vehiclePhotos, type Vehicle } from "@/lib/vehicles";
+import { BookingTicket, type TicketBooking } from "@/components/BookingTicket";
 
 export const Route = createFileRoute("/_authenticated/book/$vehicleId")({
   head: () => ({
@@ -63,6 +64,7 @@ function BookingFlow() {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
+  const [confirmedBooking, setConfirmedBooking] = useState<TicketBooking | null>(null);
 
   const { data: vehicle, isLoading } = useQuery({
     queryKey: ["vehicle", vehicleId],
@@ -148,7 +150,7 @@ function BookingFlow() {
         payment_method: method,
         status: "confirmed",
       })
-      .select("reference")
+      .select("*")
       .single();
     setSaving(false);
     if (err) {
@@ -156,6 +158,7 @@ function BookingFlow() {
       return;
     }
     setReference(data.reference);
+    setConfirmedBooking({ ...data, vehicles: vehicle });
     setStep(4);
   }
 
@@ -183,7 +186,7 @@ function BookingFlow() {
   if (step === 4 && reference) {
     return (
       <SiteLayout>
-        <section className="mx-auto max-w-2xl px-6 py-20 text-center">
+        <section className="mx-auto max-w-3xl px-6 py-12 text-center">
           <div className="mx-auto grid size-16 place-items-center rounded-2xl gradient-brand text-2xl font-bold text-primary-foreground">
             ✓
           </div>
@@ -191,17 +194,7 @@ function BookingFlow() {
           <p className="mt-3 text-sm text-muted-foreground">
             Your {vehicle.brand} {vehicle.name} is reserved. A copy of these details is in your dashboard.
           </p>
-          <div className="mt-8 rounded-3xl glass-strong p-6 text-left">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">Booking ID</p>
-            <p className="font-display text-2xl font-bold text-primary">{reference}</p>
-            <dl className="mt-6 space-y-2 text-sm">
-              <Row label="Pickup" value={new Date(pickupAt).toLocaleString("en-IN")} />
-              <Row label="Drop-off" value={new Date(dropoffAt).toLocaleString("en-IN")} />
-              <Row label="City" value={city} />
-              <Row label="Paid with" value={method.toUpperCase()} />
-              <Row label="Total paid" value={inr(priced!.total)} />
-            </dl>
-          </div>
+          <div className="mt-8">{confirmedBooking && <BookingTicket booking={confirmedBooking} />}</div>
           <div className="mt-8 flex justify-center gap-3">
             <Link
               to="/dashboard"
