@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep reusable product walkthrough videos as CDN-backed asset pointers so the app repository stays lightweight.
+- Use one shared booking ticket component for confirmation and booking history, with client-side PDF export, so both display the same persisted booking details.
