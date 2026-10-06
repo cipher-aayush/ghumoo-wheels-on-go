@@ -29,13 +29,13 @@ export function BookingTicket({ booking }: { booking: TicketBooking }) {
       await Promise.all(Array.from(node.querySelectorAll("img")).map(async (img) => {
         await img.decode();
       }));
-      const [{ toPng }, { jsPDF }] = await Promise.all([import("html-to-image"), import("jspdf")]);
-      const image = await toPng(node, { pixelRatio: 2, skipFonts: true, cacheBust: false });
+      const [{ toJpeg }, { jsPDF }] = await Promise.all([import("html-to-image"), import("jspdf")]);
+      const image = await toJpeg(node, { pixelRatio: 2, quality: 0.95, skipFonts: true, cacheBust: false });
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const props = pdf.getImageProperties(image);
       const width = Math.min(190, 277 * props.width / props.height);
       const height = width * props.height / props.width;
-      pdf.addImage(image, "PNG", (210 - width) / 2, 10, width, height);
+      pdf.addImage(image, "JPEG", (210 - width) / 2, 10, width, height);
       pdf.setProperties({ title: `DriveEasy booking ${booking.reference}`, subject: "Self-drive booking ticket" });
       pdf.save(`DriveEasy-Ticket-${booking.reference.replace(/[^a-zA-Z0-9-]/g, "")}.pdf`);
     } catch {
@@ -90,7 +90,7 @@ export function BookingTicket({ booking }: { booking: TicketBooking }) {
             <Price label="Add-ons" amount={booking.addons_amount} />
             <Price label="GST" amount={booking.taxes} />
             <Price label="Refundable deposit" amount={booking.deposit} />
-            <div className="flex items-center justify-between gap-4 pt-3 font-display text-xl font-bold"><dt>Booking total</dt><dd className="text-primary">{inr(Number(booking.total_amount))}</dd></div>
+            <div className="flex items-center justify-between gap-4 pt-3 font-display text-xl font-bold"><dt className="whitespace-nowrap">Booking total</dt><dd className="whitespace-nowrap text-primary">{inr(Number(booking.total_amount))}</dd></div>
           </dl>
         </div>
         <footer className="border-t border-dashed border-border px-6 py-4 text-xs leading-relaxed text-muted-foreground">

@@ -1,6 +1,6 @@
 # DriveEasy roadmap
 
-- [ ] Attractive booking ticket on confirmation and dashboard, with booked vehicle image and downloadable PDF
+- [x] Attractive booking ticket on confirmation and dashboard, with booked vehicle image and downloadable PDF
 
 - [x] Rename GHUMOO -> DriveEasy across all pages, titles and copy
 - [x] Replace the letter tile with a distinctive DriveEasy road logo
