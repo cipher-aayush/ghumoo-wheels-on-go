@@ -111,9 +111,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script
+          // Applies the saved theme before first paint; dark is the brand default.
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('driveeasy-theme');if(t!=='light'){document.documentElement.classList.add('dark')}}catch(e){document.documentElement.classList.add('dark')}})();`,
+          }}
+        />
       </head>
       <body>
         {children}

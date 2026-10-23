@@ -9,7 +9,7 @@ export function ThemeToggle() {
   const [dark, setDark] = useState(true);
 
   useEffect(() => {
-    setDark(!document.documentElement.classList.contains("dark") === false || true ? document.documentElement.classList.contains("dark") : true);
+    setDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   function toggle() {
