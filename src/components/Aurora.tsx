@@ -30,27 +30,18 @@ export function Aurora() {
       aria-hidden
       className="aurora-scroll pointer-events-none fixed inset-0 z-0 overflow-hidden"
     >
-      <div
-        className="aurora-ribbon aurora-ribbon-primary absolute -left-[12%] -top-[18%] h-[62vh] w-[76vw] rotate-[-12deg] blur-[80px]"
-        style={{
-          background:
-            "linear-gradient(105deg, transparent, color-mix(in oklab, var(--color-primary) 30%, transparent), transparent 72%)",
-        }}
-      />
-      <div
-        className="aurora-ribbon aurora-ribbon-violet absolute -bottom-[18%] -right-[16%] h-[70vh] w-[80vw] rotate-[14deg] blur-[90px]"
-        style={{
-          background:
-            "linear-gradient(75deg, transparent, color-mix(in oklab, var(--color-violet) 28%, transparent), transparent 70%)",
-        }}
-      />
-      <div
-        className="aurora-ribbon aurora-ribbon-mid absolute right-[8%] top-[24%] h-[48vh] w-[58vw] rotate-[-20deg] blur-[85px]"
-        style={{
-          background:
-            "linear-gradient(115deg, transparent, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 68%)",
-        }}
-      />
+      <div className="aurora-ribbon aurora-ribbon-primary absolute -left-[14%] -top-[22%] h-[72vh] w-[82vw]">
+        <div className="aurora-blob aurora-blob-a h-full w-full blur-[110px]" />
+      </div>
+      <div className="aurora-ribbon aurora-ribbon-violet absolute -bottom-[24%] -right-[18%] h-[78vh] w-[86vw]">
+        <div className="aurora-blob aurora-blob-b h-full w-full blur-[120px]" />
+      </div>
+      <div className="aurora-ribbon aurora-ribbon-mid absolute left-[26%] top-[28%] h-[56vh] w-[62vw]">
+        <div className="aurora-blob aurora-blob-c h-full w-full blur-[100px]" />
+      </div>
+      <div className="absolute left-[4%] top-[50%] h-[42vh] w-[48vw]">
+        <div className="aurora-blob aurora-blob-d h-full w-full blur-[105px]" />
+      </div>
     </div>
   );
 }

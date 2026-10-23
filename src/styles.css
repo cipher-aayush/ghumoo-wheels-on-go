@@ -144,22 +144,109 @@
 }
 
 .aurora-ribbon-primary {
-  transform: translate3d(0, calc(var(--aurora-scroll) * -0.09), 0) rotate(-12deg);
+  transform: translate3d(0, calc(var(--aurora-scroll) * -0.09), 0);
 }
 
 .aurora-ribbon-violet {
-  transform: translate3d(0, calc(var(--aurora-scroll) * 0.07), 0) rotate(14deg);
+  transform: translate3d(0, calc(var(--aurora-scroll) * 0.07), 0);
 }
 
 .aurora-ribbon-mid {
-  transform: translate3d(calc(var(--aurora-scroll) * -0.025), calc(var(--aurora-scroll) * -0.04), 0)
-    rotate(-20deg);
+  transform: translate3d(calc(var(--aurora-scroll) * -0.025), calc(var(--aurora-scroll) * -0.04), 0);
+}
+
+/* Astra-style drifting colour blobs — one animated layer behind every section */
+.aurora-blob {
+  border-radius: 9999px;
+  will-change: transform;
+}
+
+.aurora-blob-a {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-primary) 46%, transparent),
+    transparent 72%
+  );
+  animation: aurora-drift-a 36s ease-in-out infinite alternate;
+}
+
+.aurora-blob-b {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-violet) 42%, transparent),
+    transparent 72%
+  );
+  animation: aurora-drift-b 44s ease-in-out infinite alternate;
+  animation-delay: -10s;
+}
+
+.aurora-blob-c {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-primary) 30%, transparent) 0%,
+    color-mix(in oklab, var(--color-violet) 32%, transparent) 48%,
+    transparent 76%
+  );
+  animation: aurora-drift-c 52s ease-in-out infinite alternate;
+  animation-delay: -22s;
+}
+
+.aurora-blob-d {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-violet) 26%, transparent),
+    transparent 70%
+  );
+  animation: aurora-drift-d 40s ease-in-out infinite alternate;
+  animation-delay: -16s;
+}
+
+@keyframes aurora-drift-a {
+  from {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(9%, 10%, 0) scale(1.25) rotate(10deg);
+  }
+}
+
+@keyframes aurora-drift-b {
+  from {
+    transform: translate3d(5%, 6%, 0) scale(1.12) rotate(6deg);
+  }
+  to {
+    transform: translate3d(-8%, -6%, 0) scale(0.92);
+  }
+}
+
+@keyframes aurora-drift-c {
+  from {
+    transform: translate3d(4%, -6%, 0) scale(0.9);
+  }
+  to {
+    transform: translate3d(-7%, 9%, 0) scale(1.3) rotate(-8deg);
+  }
+}
+
+@keyframes aurora-drift-d {
+  from {
+    transform: translate3d(-10%, 4%, 0) scale(1.06) rotate(-6deg);
+  }
+  to {
+    transform: translate3d(10%, -8%, 0) scale(0.9) rotate(8deg);
+  }
+}
+
+.dark .aurora-blob {
+  opacity: 0.6;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora-ribbon {
+  .aurora-ribbon,
+  .aurora-blob {
     transform: none;
     transition: none;
+    animation: none;
   }
 }
 
