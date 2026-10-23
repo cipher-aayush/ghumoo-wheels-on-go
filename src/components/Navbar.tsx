@@ -49,6 +49,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           {user ? (
             <>
               <Link
