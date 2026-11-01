@@ -261,20 +261,29 @@
   overflow: hidden;
   opacity: 1;
   transition: opacity 0.75s ease;
+  pointer-events: none;
 }
 
 .astra-intro.is-reveal {
   opacity: 0;
 }
 
-.astra-backdrop {
-  position: absolute;
+/* Backdrop applied pre-paint via the __root script so the page never flashes */
+html.astra-boot::before {
+  content: "";
+  position: fixed;
   inset: 0;
+  z-index: 100;
   background: radial-gradient(
     120% 90% at 50% 42%,
     color-mix(in oklab, var(--background) 86%, black),
     var(--background) 80%
   );
+  transition: opacity 0.75s ease;
+}
+
+html.astra-boot.astra-out::before {
+  opacity: 0;
 }
 
 .astra-blob-field {
@@ -293,6 +302,10 @@
   opacity: 0;
   background: radial-gradient(closest-side, var(--astra-color) 0%, transparent 70%);
   will-change: transform, opacity;
+}
+
+/* Blobs only fly while the intro boot cover is active */
+html.astra-boot .astra-blob {
   animation: astra-converge 1.9s cubic-bezier(0.2, 0.7, 0.25, 1) forwards;
   animation-delay: var(--astra-delay, 0s);
 }
