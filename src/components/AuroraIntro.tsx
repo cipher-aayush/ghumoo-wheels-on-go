@@ -5,11 +5,16 @@ import driveEasyLogo from "@/assets/driveeasy-logo-road.png";
  * Astra-style opening: drifting colour ribbons sweep in, implode into a
  * single glow, and the DriveEasy "D" mark forms with a star sparkle before
  * the site reveals. Plays once per browser session.
+ *
+ * The dark backdrop itself is `html.astra-boot::before` (see styles.css) and
+ * is applied by the pre-paint script in __root, so the page never flashes
+ * before the intro. Blob animations are gated on `html.astra-boot` in CSS so
+ * they start from the server HTML and stay invisible for repeat visitors.
  */
 
 const SESSION_KEY = "driveeasy-astra-intro";
 
-type Phase = "idle" | "converge" | "form" | "reveal" | "done";
+type Phase = "converge" | "form" | "reveal" | "done";
 
 const BLOBS = [
   { color: "var(--color-primary)", sx: "-52vw", sy: "-44vh", ss: "1.5", sr: "-24deg", ex: "7vw", ey: "-5vh", delay: "0s" },
@@ -22,41 +27,39 @@ const BLOBS = [
 ] as const;
 
 export function AuroraIntro() {
-  const [phase, setPhase] = useState<Phase>("idle");
+  const [phase, setPhase] = useState<Phase>("converge");
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      if (sessionStorage.getItem(SESSION_KEY)) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        sessionStorage.setItem(SESSION_KEY, "1");
-        return;
-      }
-    } catch {
+    const root = document.documentElement;
+    if (!root.classList.contains("astra-boot")) {
+      setPhase("done");
       return;
     }
 
-    setPhase("converge");
+    try {
+      sessionStorage.setItem(SESSION_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+
     const timers = [
       window.setTimeout(() => setPhase("form"), 2000),
-      window.setTimeout(() => setPhase("reveal"), 3100),
       window.setTimeout(() => {
+        root.classList.add("astra-out");
+        setPhase("reveal");
+      }, 3100),
+      window.setTimeout(() => {
+        root.classList.remove("astra-boot", "astra-out");
         setPhase("done");
-        try {
-          sessionStorage.setItem(SESSION_KEY, "1");
-        } catch {
-          /* ignore */
-        }
-      }, 3950),
+      }, 4000),
     ];
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, []);
 
-  if (phase === "idle" || phase === "done") return null;
+  if (phase === "done") return null;
 
   return (
     <div className={`astra-intro is-${phase}`} aria-hidden>
-      <div className="astra-backdrop" />
       <div className="astra-blob-field">
         {BLOBS.map((b, i) => (
           <div

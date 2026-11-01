@@ -115,9 +115,10 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         <script
-          // Applies the saved theme before first paint; dark is the brand default.
+          // Applies the saved theme before first paint (dark is the brand default)
+          // and covers the page with the Astra intro backdrop before first paint.
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('driveeasy-theme');if(t!=='light'){document.documentElement.classList.add('dark')}}catch(e){document.documentElement.classList.add('dark')}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('driveeasy-theme');if(t!=='light'){document.documentElement.classList.add('dark')}if(!sessionStorage.getItem('driveeasy-astra-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('astra-boot')}}catch(e){document.documentElement.classList.add('dark')}})();`,
           }}
         />
       </head>
