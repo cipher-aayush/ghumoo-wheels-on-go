@@ -4,15 +4,13 @@ import driveEasyLogo from "@/assets/driveeasy-logo-road.png";
 /**
  * Astra-style opening: drifting colour ribbons sweep in, implode into a
  * single glow, and the DriveEasy "D" mark forms with a star sparkle before
- * the site reveals. Plays once per browser session.
+ * the site reveals. Plays on every page load.
  *
  * The dark backdrop itself is `html.astra-boot::before` (see styles.css) and
  * is applied by the pre-paint script in __root, so the page never flashes
  * before the intro. Blob animations are gated on `html.astra-boot` in CSS so
  * they start from the server HTML and stay invisible for repeat visitors.
  */
-
-const SESSION_KEY = "driveeasy-astra-intro";
 
 type Phase = "converge" | "form" | "reveal" | "done";
 
@@ -34,12 +32,6 @@ export function AuroraIntro() {
     if (!root.classList.contains("astra-boot")) {
       setPhase("done");
       return;
-    }
-
-    try {
-      sessionStorage.setItem(SESSION_KEY, "1");
-    } catch {
-      /* ignore */
     }
 
     const timers = [
