@@ -4,7 +4,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteLayout } from "@/components/SiteLayout";
 import { VehicleCard } from "@/components/VehicleCard";
-import { CITIES, RENTAL_POLICIES, inr, type Vehicle } from "@/lib/vehicles";
+import { CITIES, RENTAL_POLICIES, type Vehicle } from "@/lib/vehicles";
 import heroImage from "@/assets/hero-suv.jpg";
 import bookingTutorial from "@/assets/driveeasy-booking-tutorial.mp4.asset.json";
 
