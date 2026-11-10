@@ -175,14 +175,6 @@ function Landing() {
             <div className="pointer-events-none absolute left-4 top-4 rounded-xl glass-strong px-4 py-2">
               <p className="text-xs font-semibold text-primary">How to book in 5 steps</p>
             </div>
-            <div className="absolute -bottom-5 -left-5 rounded-2xl glass-strong px-5 py-4 shadow-xl">
-              <p className="text-xs text-muted-foreground">Avg. per day</p>
-              <p className="font-display text-2xl font-bold text-primary">{inr(1499)}</p>
-            </div>
-            <div className="absolute -right-3 top-6 rounded-2xl glass-strong px-4 py-3 shadow-xl">
-              <p className="text-xs text-muted-foreground">Vehicles ready now</p>
-              <p className="font-display text-lg font-bold">214</p>
-            </div>
           </div>
         </div>
       </section>
